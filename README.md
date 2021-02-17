@@ -70,7 +70,7 @@ $ curl -s "http://localhost:8081/multiply?num1=10&num2=25"
 ```xml
 <expression-service>
     <unique-id>is-number1-greater-than-number2</unique-id>
-    <algorithm>($1 &gt; $2)</algorithm>
+    <algorithm>($1 > $2)</algorithm>
 ```
 
 ```
@@ -87,7 +87,7 @@ true
 ```xml
 <expression-service>
     <unique-id>is-number1-less-than-or-equal-to-number2</unique-id>
-    <algorithm>($1 &lt;= $2)</algorithm>
+    <algorithm>($1 <= $2)</algorithm>
 ```
 
 ```
