@@ -3,7 +3,14 @@
   <start-up-event-imp>com.adaptris.core.event.StandardAdapterStartUpEvent</start-up-event-imp>
   <heartbeat-event-imp>com.adaptris.core.HeartbeatEvent</heartbeat-event-imp>
   <shared-components>
-    <connections/>
+    <connections>
+      <jetty-http-connection>
+        <unique-id>jetty-conn</unique-id>
+        <port>8081</port>
+        <server-connector-properties/>
+        <http-configuration/>
+      </jetty-http-connection>
+    </connections>
     <services/>
   </shared-components>
   <event-handler class="default-event-handler">
@@ -23,7 +30,425 @@
   </failed-message-retrier>
   <channel-list>
     <channel>
+      <consume-connection class="shared-connection">
+        <lookup-name>jetty-conn</lookup-name>
+      </consume-connection>
+      <produce-connection class="null-connection">
+        <unique-id>null-conn</unique-id>
+      </produce-connection>
+      <workflow-list>
+        <standard-workflow>
+          <consumer class="jetty-message-consumer">
+            <message-factory class="default-message-factory"/>
+            <unique-id>addition</unique-id>
+            <additional-debug>true</additional-debug>
+            <path>/add</path>
+            <methods>GET</methods>
+            <parameter-handler class="jetty-http-parameters-as-metadata"/>
+            <header-handler class="jetty-http-ignore-headers"/>
+          </consumer>
+          <service-collection class="service-list">
+            <unique-id>eager-albattani</unique-id>
+            <services>
+              <expression-service>
+                <unique-id>add-two-numbers</unique-id>
+                <result class="metadata-data-output-parameter">
+                  <metadata-key>expressionResult</metadata-key>
+                </result>
+                <algorithm>($1 + $2)</algorithm>
+                <parameters>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num1</metadata-key>
+                  </metadata-data-input-parameter>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num2</metadata-key>
+                  </metadata-data-input-parameter>
+                </parameters>
+                <result-formatter class="numerical-result-formatter"/>
+              </expression-service>
+              <metadata-to-payload>
+                <unique-id>set-payload</unique-id>
+                <key>expressionResult</key>
+                <metadata-source>Standard</metadata-source>
+                <encoding>None</encoding>
+              </metadata-to-payload>
+            </services>
+          </service-collection>
+          <producer class="jetty-standard-response-producer">
+            <unique-id>return-result</unique-id>
+            <status-provider class="http-configured-status">
+              <status>OK_200</status>
+            </status-provider>
+            <response-header-provider class="jetty-no-response-headers"/>
+            <content-type-provider class="http-configured-content-type-provider">
+              <mime-type>text/plain</mime-type>
+            </content-type-provider>
+            <send-payload>true</send-payload>
+          </producer>
+          <produce-exception-handler class="null-produce-exception-handler"/>
+          <unique-id>addition</unique-id>
+        </standard-workflow>
+        <standard-workflow>
+          <consumer class="jetty-message-consumer">
+            <message-factory class="default-message-factory"/>
+            <unique-id>subtraction</unique-id>
+            <additional-debug>true</additional-debug>
+            <path>/minus</path>
+            <methods>GET</methods>
+            <parameter-handler class="jetty-http-parameters-as-metadata"/>
+            <header-handler class="jetty-http-ignore-headers"/>
+          </consumer>
+          <service-collection class="service-list">
+            <unique-id>eager-albattani</unique-id>
+            <services>
+              <expression-service>
+                <unique-id>minus-two-numbers</unique-id>
+                <result class="metadata-data-output-parameter">
+                  <metadata-key>expressionResult</metadata-key>
+                </result>
+                <algorithm>($1 - $2)</algorithm>
+                <parameters>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num1</metadata-key>
+                  </metadata-data-input-parameter>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num2</metadata-key>
+                  </metadata-data-input-parameter>
+                </parameters>
+                <result-formatter class="numerical-result-formatter"/>
+              </expression-service>
+              <metadata-to-payload>
+                <unique-id>set-payload</unique-id>
+                <key>expressionResult</key>
+                <metadata-source>Standard</metadata-source>
+                <encoding>None</encoding>
+              </metadata-to-payload>
+            </services>
+          </service-collection>
+          <producer class="jetty-standard-response-producer">
+            <unique-id>return-result</unique-id>
+            <status-provider class="http-configured-status">
+              <status>OK_200</status>
+            </status-provider>
+            <response-header-provider class="jetty-no-response-headers"/>
+            <content-type-provider class="http-configured-content-type-provider">
+              <mime-type>text/plain</mime-type>
+            </content-type-provider>
+            <send-payload>true</send-payload>
+          </producer>
+          <produce-exception-handler class="null-produce-exception-handler"/>
+          <unique-id>subtraction</unique-id>
+        </standard-workflow>
+        <standard-workflow>
+          <consumer class="jetty-message-consumer">
+            <message-factory class="default-message-factory"/>
+            <unique-id>division</unique-id>
+            <additional-debug>true</additional-debug>
+            <path>/divide</path>
+            <methods>GET</methods>
+            <parameter-handler class="jetty-http-parameters-as-metadata"/>
+            <header-handler class="jetty-http-ignore-headers"/>
+          </consumer>
+          <service-collection class="service-list">
+            <unique-id>eager-albattani</unique-id>
+            <services>
+              <expression-service>
+                <unique-id>divide-two-numbers</unique-id>
+                <result class="metadata-data-output-parameter">
+                  <metadata-key>expressionResult</metadata-key>
+                </result>
+                <algorithm>($1 / $2)</algorithm>
+                <parameters>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num1</metadata-key>
+                  </metadata-data-input-parameter>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num2</metadata-key>
+                  </metadata-data-input-parameter>
+                </parameters>
+                <result-formatter class="numerical-result-formatter"/>
+              </expression-service>
+              <metadata-to-payload>
+                <unique-id>set-payload</unique-id>
+                <key>expressionResult</key>
+                <metadata-source>Standard</metadata-source>
+                <encoding>None</encoding>
+              </metadata-to-payload>
+            </services>
+          </service-collection>
+          <producer class="jetty-standard-response-producer">
+            <unique-id>return-result</unique-id>
+            <status-provider class="http-configured-status">
+              <status>OK_200</status>
+            </status-provider>
+            <response-header-provider class="jetty-no-response-headers"/>
+            <content-type-provider class="http-configured-content-type-provider">
+              <mime-type>text/plain</mime-type>
+            </content-type-provider>
+            <send-payload>true</send-payload>
+          </producer>
+          <produce-exception-handler class="null-produce-exception-handler"/>
+          <unique-id>division</unique-id>
+        </standard-workflow>
+        <standard-workflow>
+          <consumer class="jetty-message-consumer">
+            <message-factory class="default-message-factory"/>
+            <unique-id>multiplication</unique-id>
+            <additional-debug>true</additional-debug>
+            <path>/multiply</path>
+            <methods>GET</methods>
+            <parameter-handler class="jetty-http-parameters-as-metadata"/>
+            <header-handler class="jetty-http-ignore-headers"/>
+          </consumer>
+          <service-collection class="service-list">
+            <unique-id>eager-albattani</unique-id>
+            <services>
+              <expression-service>
+                <unique-id>multiply-two-numbers</unique-id>
+                <result class="metadata-data-output-parameter">
+                  <metadata-key>expressionResult</metadata-key>
+                </result>
+                <algorithm>($1 * $2)</algorithm>
+                <parameters>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num1</metadata-key>
+                  </metadata-data-input-parameter>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num2</metadata-key>
+                  </metadata-data-input-parameter>
+                </parameters>
+                <result-formatter class="numerical-result-formatter"/>
+              </expression-service>
+              <metadata-to-payload>
+                <unique-id>set-payload</unique-id>
+                <key>expressionResult</key>
+                <metadata-source>Standard</metadata-source>
+                <encoding>None</encoding>
+              </metadata-to-payload>
+            </services>
+          </service-collection>
+          <producer class="jetty-standard-response-producer">
+            <unique-id>return-result</unique-id>
+            <status-provider class="http-configured-status">
+              <status>OK_200</status>
+            </status-provider>
+            <response-header-provider class="jetty-no-response-headers"/>
+            <content-type-provider class="http-configured-content-type-provider">
+              <mime-type>text/plain</mime-type>
+            </content-type-provider>
+            <send-payload>true</send-payload>
+          </producer>
+          <produce-exception-handler class="null-produce-exception-handler"/>
+          <unique-id>multiplication</unique-id>
+        </standard-workflow>
+        <standard-workflow>
+          <consumer class="jetty-message-consumer">
+            <message-factory class="default-message-factory"/>
+            <unique-id>greater-than</unique-id>
+            <additional-debug>true</additional-debug>
+            <path>/greater-than</path>
+            <methods>GET</methods>
+            <parameter-handler class="jetty-http-parameters-as-metadata"/>
+            <header-handler class="jetty-http-ignore-headers"/>
+          </consumer>
+          <service-collection class="service-list">
+            <unique-id>eager-albattani</unique-id>
+            <services>
+              <expression-service>
+                <unique-id>is-number1-greater-than-number2</unique-id>
+                <result class="metadata-data-output-parameter">
+                  <metadata-key>expressionResult</metadata-key>
+                </result>
+                <algorithm>($1 &gt; $2)</algorithm>
+                <parameters>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num1</metadata-key>
+                  </metadata-data-input-parameter>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num2</metadata-key>
+                  </metadata-data-input-parameter>
+                </parameters>
+                <result-formatter class="boolean-result-formatter"/>
+              </expression-service>
+              <metadata-to-payload>
+                <unique-id>set-payload</unique-id>
+                <key>expressionResult</key>
+                <metadata-source>Standard</metadata-source>
+                <encoding>None</encoding>
+              </metadata-to-payload>
+            </services>
+          </service-collection>
+          <producer class="jetty-standard-response-producer">
+            <unique-id>return-result</unique-id>
+            <status-provider class="http-configured-status">
+              <status>OK_200</status>
+            </status-provider>
+            <response-header-provider class="jetty-no-response-headers"/>
+            <content-type-provider class="http-configured-content-type-provider">
+              <mime-type>text/plain</mime-type>
+            </content-type-provider>
+            <send-payload>true</send-payload>
+          </producer>
+          <produce-exception-handler class="null-produce-exception-handler"/>
+          <unique-id>greater-than</unique-id>
+        </standard-workflow>
+        <standard-workflow>
+          <consumer class="jetty-message-consumer">
+            <message-factory class="default-message-factory"/>
+            <unique-id>less-than-or-equal-to</unique-id>
+            <additional-debug>true</additional-debug>
+            <path>/less-than-or-equal-to</path>
+            <methods>GET</methods>
+            <parameter-handler class="jetty-http-parameters-as-metadata"/>
+            <header-handler class="jetty-http-ignore-headers"/>
+          </consumer>
+          <service-collection class="service-list">
+            <unique-id>eager-albattani</unique-id>
+            <services>
+              <expression-service>
+                <unique-id>is-number1-less-than-or-equal-to-number2</unique-id>
+                <result class="metadata-data-output-parameter">
+                  <metadata-key>expressionResult</metadata-key>
+                </result>
+                <algorithm>($1 &lt;= $2)</algorithm>
+                <parameters>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num1</metadata-key>
+                  </metadata-data-input-parameter>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num2</metadata-key>
+                  </metadata-data-input-parameter>
+                </parameters>
+                <result-formatter class="boolean-result-formatter"/>
+              </expression-service>
+              <metadata-to-payload>
+                <unique-id>set-payload</unique-id>
+                <key>expressionResult</key>
+                <metadata-source>Standard</metadata-source>
+                <encoding>None</encoding>
+              </metadata-to-payload>
+            </services>
+          </service-collection>
+          <producer class="jetty-standard-response-producer">
+            <unique-id>return-result</unique-id>
+            <status-provider class="http-configured-status">
+              <status>OK_200</status>
+            </status-provider>
+            <response-header-provider class="jetty-no-response-headers"/>
+            <content-type-provider class="http-configured-content-type-provider">
+              <mime-type>text/plain</mime-type>
+            </content-type-provider>
+            <send-payload>true</send-payload>
+          </producer>
+          <produce-exception-handler class="null-produce-exception-handler"/>
+          <unique-id>less-than-or-equal-to</unique-id>
+        </standard-workflow>
+        <standard-workflow>
+          <consumer class="jetty-message-consumer">
+            <message-factory class="default-message-factory"/>
+            <unique-id>equal-to</unique-id>
+            <additional-debug>true</additional-debug>
+            <path>/equal-to</path>
+            <methods>GET</methods>
+            <parameter-handler class="jetty-http-parameters-as-metadata"/>
+            <header-handler class="jetty-http-ignore-headers"/>
+          </consumer>
+          <service-collection class="service-list">
+            <unique-id>eager-albattani</unique-id>
+            <services>
+              <expression-service>
+                <unique-id>is-number1-equal-to-number2</unique-id>
+                <result class="metadata-data-output-parameter">
+                  <metadata-key>expressionResult</metadata-key>
+                </result>
+                <algorithm>($1.equals($2))</algorithm>
+                <parameters>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num1</metadata-key>
+                  </metadata-data-input-parameter>
+                  <metadata-data-input-parameter>
+                    <metadata-key>num2</metadata-key>
+                  </metadata-data-input-parameter>
+                </parameters>
+                <result-formatter class="boolean-result-formatter"/>
+              </expression-service>
+              <metadata-to-payload>
+                <unique-id>set-payload</unique-id>
+                <key>expressionResult</key>
+                <metadata-source>Standard</metadata-source>
+                <encoding>None</encoding>
+              </metadata-to-payload>
+            </services>
+          </service-collection>
+          <producer class="jetty-standard-response-producer">
+            <unique-id>return-result</unique-id>
+            <status-provider class="http-configured-status">
+              <status>OK_200</status>
+            </status-provider>
+            <response-header-provider class="jetty-no-response-headers"/>
+            <content-type-provider class="http-configured-content-type-provider">
+              <mime-type>text/plain</mime-type>
+            </content-type-provider>
+            <send-payload>true</send-payload>
+          </producer>
+          <produce-exception-handler class="null-produce-exception-handler"/>
+          <unique-id>equal-to</unique-id>
+        </standard-workflow>
+      </workflow-list>
       <unique-id>expressions-processing</unique-id>
+    </channel>
+    <channel>
+      <consume-connection class="shared-connection">
+        <lookup-name>jetty-conn</lookup-name>
+      </consume-connection>
+      <produce-connection class="null-connection">
+        <unique-id>null-conn</unique-id>
+      </produce-connection>
+      <workflow-list>
+        <standard-workflow>
+          <consumer class="jetty-message-consumer">
+            <message-factory class="default-message-factory"/>
+            <unique-id>multiply-three</unique-id>
+            <additional-debug>true</additional-debug>
+            <path>/multiply-three</path>
+            <methods>GET</methods>
+            <parameter-handler class="jetty-http-parameters-as-metadata"/>
+            <header-handler class="jetty-http-ignore-headers"/>
+          </consumer>
+          <service-collection class="service-list">
+            <unique-id>eager-albattani</unique-id>
+            <services>
+              <freeform-expression-service>
+                <unique-id>multiply-three-numbers</unique-id>
+                <result class="metadata-data-output-parameter">
+                  <metadata-key>expressionResult</metadata-key>
+                </result>
+                <algorithm>(%message{num1} * %message{num2} * %message{num3})</algorithm>
+              </freeform-expression-service>
+              <metadata-to-payload>
+                <unique-id>set-payload</unique-id>
+                <key>expressionResult</key>
+                <metadata-source>Standard</metadata-source>
+                <encoding>None</encoding>
+              </metadata-to-payload>
+            </services>
+          </service-collection>
+          <producer class="jetty-standard-response-producer">
+            <unique-id>return-result</unique-id>
+            <status-provider class="http-configured-status">
+              <status>OK_200</status>
+            </status-provider>
+            <response-header-provider class="jetty-no-response-headers"/>
+            <content-type-provider class="http-configured-content-type-provider">
+              <mime-type>text/plain</mime-type>
+            </content-type-provider>
+            <send-payload>true</send-payload>
+          </producer>
+          <produce-exception-handler class="null-produce-exception-handler"/>
+          <unique-id>multiply-three</unique-id>
+        </standard-workflow>
+      </workflow-list>
+      <unique-id>free-form-expressions-processing</unique-id>
     </channel>
   </channel-list>
   <message-error-digester class="standard-message-error-digester">
