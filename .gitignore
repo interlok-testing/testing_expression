@@ -2,4 +2,3 @@ build
 .gradle
 gradle.properties
 interlokuidb.properties
-gradle/
