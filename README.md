@@ -19,11 +19,9 @@ Each workflow is made up of:
 
 Now you can do various api calls:
 
-### addition
+### addition (using expression-service)
 ```xml
-<expression-service>
-    <unique-id>add-two-numbers</unique-id>
-    <algorithm>($1 + $2)</algorithm>
+<algorithm>($1 + $2)</algorithm>
 ```
 
 ```
@@ -31,22 +29,18 @@ $ curl -s "http://localhost:8081/add?num1=10&num2=25"
 35
 ```
 
-### subtraction
+### subtraction (using expression-service)
 ```xml
-<expression-service>
-    <unique-id>minus-two-numbers</unique-id>
-    <algorithm>($1 - $2)</algorithm>
+<algorithm>($1 - $2)</algorithm>
 ```
 
 ```
 $ curl -s "http://localhost:8081/minus?num1=10&num2=25"
 -15
 ```
-### division
+### division (using expression-service)
 ```xml
-<expression-service>
-    <unique-id>divide-two-numbers</unique-id>
-    <algorithm>($1 / $2)</algorithm>
+<algorithm>($1 / $2)</algorithm>
 ```
 
 ```
@@ -54,11 +48,9 @@ $ curl -s "http://localhost:8081/divide?num1=10&num2=2"
 5
 ```
 
-### multiplication
+### multiplication (using expression-service)
 ```xml
-<expression-service>
-    <unique-id>multiply-two-numbers</unique-id>
-    <algorithm>($1 * $2)</algorithm>
+<algorithm>($1 * $2)</algorithm>
 ```
 
 ```
@@ -66,11 +58,9 @@ $ curl -s "http://localhost:8081/multiply?num1=10&num2=25"
 250
 ```
 
-### greater than
+### greater than (using expression-service)
 ```xml
-<expression-service>
-    <unique-id>is-number1-greater-than-number2</unique-id>
-    <algorithm>($1 > $2)</algorithm>
+<algorithm>($1 > $2)</algorithm>
 ```
 
 ```
@@ -83,11 +73,9 @@ $ curl -s "http://localhost:8081/greater-than?num1=105&num2=25"
 true
 ```
 
-### less than or equal to
+### less than or equal to (using expression-service)
 ```xml
-<expression-service>
-    <unique-id>is-number1-less-than-or-equal-to-number2</unique-id>
-    <algorithm>($1 <= $2)</algorithm>
+<algorithm>($1 <= $2)</algorithm>
 ```
 
 ```
@@ -105,11 +93,9 @@ $ curl -s "http://localhost:8081/less-than-or-equal-to?num1=105&num2=105"
 true
 ```
 
-### equal to
+### equal to (using expression-service)
 ```xml
-<expression-service>
-    <unique-id>is-number1-equal-to-number2</unique-id>
-    <algorithm>($1.equals($2))</algorithm>
+<algorithm>($1.equals($2))</algorithm>
 ```
 
 ```
@@ -122,11 +108,9 @@ $ curl -s "http://localhost:8081/equal-to?num1=105&num2=1053"
 false
 ```
 
-### multiplication (using a freeform-expression-service)
+### multiplication (using freeform-expression-service)
 ```xml
-<freeform-expression-service>
-    <unique-id>multiply-three-numbers</unique-id>
-    <algorithm>(%message{num1} * %message{num2} * %message{num3})</algorithm>
+<algorithm>(%message{num1} * %message{num2} * %message{num3})</algorithm>
 ```
 
 ```
