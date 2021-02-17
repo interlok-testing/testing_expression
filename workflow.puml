@@ -1,0 +1,26 @@
+```plantuml
+@startuml
+cloud cloud [
+/api-operation
+]
+storage workflow {
+usecase usecase [
+jetty-message-consumer
+]
+rectangle rectangle1 [       
+expression-service
+]
+ rectangle rectangle2 [       
+metadata-to-payload
+]
+usecase usecase2 [
+jetty-standard-response-producer
+] 
+}
+cloud -> usecase
+usecase -> rectangle1
+rectangle1 -> rectangle2
+rectangle2 -> usecase2
+usecase2 -> cloud
+@enduml
+```

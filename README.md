@@ -12,6 +12,8 @@ Each workflow is made up of:
 * a metadata-to-payload that sets the payload from the metadata key 'expressionResult'
 * a jetty-standard-response-producer that returns the payload result back to the requester
 
+![workflow diagram](/workflow-diagram.png "workflow diagram")
+ 
 ## Getting started
 
 * `./gradlew clean build`
