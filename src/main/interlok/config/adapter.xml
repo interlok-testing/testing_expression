@@ -85,7 +85,6 @@
             </content-type-provider>
             <send-payload>true</send-payload>
           </producer>
-          <produce-exception-handler class="null-produce-exception-handler"/>
           <unique-id>addition</unique-id>
         </standard-workflow>
         <standard-workflow>
@@ -136,7 +135,6 @@
             </content-type-provider>
             <send-payload>true</send-payload>
           </producer>
-          <produce-exception-handler class="null-produce-exception-handler"/>
           <unique-id>subtraction</unique-id>
         </standard-workflow>
         <standard-workflow>
@@ -187,7 +185,6 @@
             </content-type-provider>
             <send-payload>true</send-payload>
           </producer>
-          <produce-exception-handler class="null-produce-exception-handler"/>
           <unique-id>division</unique-id>
         </standard-workflow>
         <standard-workflow>
@@ -238,7 +235,6 @@
             </content-type-provider>
             <send-payload>true</send-payload>
           </producer>
-          <produce-exception-handler class="null-produce-exception-handler"/>
           <unique-id>multiplication</unique-id>
         </standard-workflow>
         <standard-workflow>
@@ -289,7 +285,6 @@
             </content-type-provider>
             <send-payload>true</send-payload>
           </producer>
-          <produce-exception-handler class="null-produce-exception-handler"/>
           <unique-id>greater-than</unique-id>
         </standard-workflow>
         <standard-workflow>
@@ -340,7 +335,6 @@
             </content-type-provider>
             <send-payload>true</send-payload>
           </producer>
-          <produce-exception-handler class="null-produce-exception-handler"/>
           <unique-id>less-than-or-equal-to</unique-id>
         </standard-workflow>
         <standard-workflow>
@@ -391,7 +385,6 @@
             </content-type-provider>
             <send-payload>true</send-payload>
           </producer>
-          <produce-exception-handler class="null-produce-exception-handler"/>
           <unique-id>equal-to</unique-id>
         </standard-workflow>
       </workflow-list>
@@ -444,7 +437,6 @@
             </content-type-provider>
             <send-payload>true</send-payload>
           </producer>
-          <produce-exception-handler class="null-produce-exception-handler"/>
           <unique-id>multiply-three</unique-id>
         </standard-workflow>
       </workflow-list>
