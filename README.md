@@ -24,7 +24,7 @@ Each workflow is made up of:
 
 Now you can do various api calls:
 
-### addition (using expression-service)
+### Addition (using expression-service)
 ```xml
 <algorithm>($1 + $2)</algorithm>
 ```
@@ -34,7 +34,7 @@ $ curl -s "http://localhost:8081/add?num1=10&num2=25"
 35
 ```
 
-### subtraction (using expression-service)
+### Subtraction (using expression-service)
 ```xml
 <algorithm>($1 - $2)</algorithm>
 ```
@@ -43,7 +43,7 @@ $ curl -s "http://localhost:8081/add?num1=10&num2=25"
 $ curl -s "http://localhost:8081/minus?num1=10&num2=25"
 -15
 ```
-### division (using expression-service)
+### Division (using expression-service)
 ```xml
 <algorithm>($1 / $2)</algorithm>
 ```
@@ -53,7 +53,7 @@ $ curl -s "http://localhost:8081/divide?num1=10&num2=2"
 5
 ```
 
-### multiplication (using expression-service)
+### Multiplication (using expression-service)
 ```xml
 <algorithm>($1 * $2)</algorithm>
 ```
@@ -63,7 +63,7 @@ $ curl -s "http://localhost:8081/multiply?num1=10&num2=25"
 250
 ```
 
-### greater than (using expression-service)
+### Ggreater than (using expression-service)
 ```xml
 <algorithm>($1 > $2)</algorithm>
 ```
@@ -78,7 +78,7 @@ $ curl -s "http://localhost:8081/greater-than?num1=105&num2=25"
 true
 ```
 
-### less than or equal to (using expression-service)
+### Less than or equal to (using expression-service)
 ```xml
 <algorithm>($1 <= $2)</algorithm>
 ```
@@ -98,7 +98,7 @@ $ curl -s "http://localhost:8081/less-than-or-equal-to?num1=105&num2=105"
 true
 ```
 
-### equal to (using expression-service)
+### Equal to (using expression-service)
 ```xml
 <algorithm>($1.equals($2))</algorithm>
 ```
@@ -113,7 +113,7 @@ $ curl -s "http://localhost:8081/equal-to?num1=105&num2=1053"
 false
 ```
 
-### multiplication (using freeform-expression-service)
+### Multiplication (using freeform-expression-service)
 ```xml
 <algorithm>(%message{num1} * %message{num2} * %message{num3})</algorithm>
 ```
