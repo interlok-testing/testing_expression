@@ -1,5 +1,8 @@
 # Expression Testing
 
+[![license](https://img.shields.io/github/license/interlok-testing/testing_expression.svg)](https://github.com/interlok-testing/testing_expression/blob/develop/LICENSE)
+[![Actions Status](https://github.com/interlok-testing/testing_expression/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/interlok-testing/testing_expression/actions/workflows/gradle-build.yml)
+
 Project tests interlok-expressions features
 
 ## What it does
